@@ -1,3 +1,20 @@
-from django.shortcuts import render
+from datetime import datetime
 
-# Create your views here.
+from django.core import serializers
+from django.shortcuts import render
+from django.http import HttpResponse
+
+from .models import Song
+
+def index(request):
+    return HttpResponse(serializers.serialize('json', Song.objects.all()), 'application/json')
+
+def new_song(request):
+    POST = request.POST
+    song = Song.objects.create(
+        name=POST['name'],
+        artist=POST['artist'],
+        data=POST['song'],
+        created_at=datetime.now()
+    )
+    return HttpResponse(serializers.serialize('json', [song]))
