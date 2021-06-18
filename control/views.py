@@ -18,3 +18,7 @@ def new_song(request):
         created_at=datetime.now()
     )
     return HttpResponse(serializers.serialize('json', [song]))
+
+def all_songs(request):
+    songs = Song.objects.all()
+    return HttpResponse(serializers.serialize('json', songs))

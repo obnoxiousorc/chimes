@@ -1,18 +1,21 @@
+import React, { useEffect, useState } from 'react';
 import { List, ListItem } from '@material-ui/core';
-import React from 'react';
+import axios from 'axios';
 
-const songs = [
-    {
-        name: 'Test Song',
-        artist: 'Zed',
-        song: [
-            { notes: ['F5', 'F6'], delay: 1 },
-            { notes: ['F5'], delay: 1 },
-            { notes: ['F6'], delay: .5 },
-            { notes: ['F5'], delay: 1 },
-        ]
-    }
-]
+
+// const songs = [
+//     {
+//         id: 1,
+//         name: 'Test Song',
+//         artist: 'Zed',
+//         song: [
+//             { notes: ['F5', 'F6'], delay: 1 },
+//             { notes: ['F5'], delay: 1 },
+//             { notes: ['F6'], delay: .5 },
+//             { notes: ['F5'], delay: 1 },
+//         ]
+//     }
+// ]
 
 // TODO:
 // show all info, including approximate length?
@@ -26,16 +29,25 @@ const songs = [
 //   Could affect speed or velocity (if that even works)
 
 export default function SongList() {
-    return (
-        <div>
-            <h2>All songs</h2>
-            <List>
-                {songs.map(song => (
-                    <ListItem>
-                        {song.name}
-                    </ListItem>
-                ))}
-            </List>
-        </div>
-    )
+	const [songs, setSongs] = useState([]);
+
+	useEffect(() => {
+		axios
+			.get('http://127.0.0.1:8000/all_songs')
+			.then((res) => setSongs(res.data))
+			.catch((err) => console.log(err));
+	}, []);
+
+	return (
+		<div>
+			<h2>All songs</h2>
+			<List>
+				{songs.map(song => (
+					<ListItem key={song.id}>
+						{song.name}
+					</ListItem>
+				))}
+			</List>
+		</div>
+	)
 }
