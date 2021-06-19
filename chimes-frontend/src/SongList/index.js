@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { List, ListItem } from '@material-ui/core';
+import { IconButton, List, ListItem, ListItemSecondaryAction, ListItemText } from '@material-ui/core';
+import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 import axios from 'axios';
 
 
@@ -43,8 +44,17 @@ export default function SongList() {
 			<h2>All songs</h2>
 			<List>
 				{songs.map(song => (
-					<ListItem key={song.id}>
-						{song.name}
+					<ListItem key={song.pk}>
+						<ListItemText>
+							{song.fields.name}
+						</ListItemText>
+						<ListItemSecondaryAction>
+							<IconButton onClick={() => {
+								axios.get(`http://127.0.0.1:8000/song/${song.pk}/play`)
+							}}>
+								<PlayCircleOutlineIcon />
+							</IconButton>
+						</ListItemSecondaryAction>
 					</ListItem>
 				))}
 			</List>
