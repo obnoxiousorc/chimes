@@ -6,7 +6,9 @@ from control import parser
 q = Queue()
 logger = logging.getLogger('django')
 
-def play(note):
+#chime_set = ChimeSet.find_one
+
+def play_note(note):
 	logger.error(note)
 
 def play_song(song):
@@ -21,7 +23,7 @@ def play_song(song):
 	time.sleep(3)
 	for part in song['data']:
 		for note in part['notes']:
-			play(note)
+			play_note(note)
 		time.sleep(song['speed_mult'] * part['delay'])
 
 def worker():
