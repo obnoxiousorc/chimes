@@ -13,7 +13,7 @@ class ChimesSet(models.Model):
 
 
 class Chime(models.Model):
-    servo_offset = models.IntegerField(default=0)
+    home_position = models.IntegerField(default=0)
     kit_location = models.IntegerField()
     note_name = models.CharField(max_length=10)
     chimes_set = models.ForeignKey(ChimesSet, on_delete=models.CASCADE)
