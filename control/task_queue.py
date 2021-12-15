@@ -3,6 +3,8 @@ import logging
 import time
 from control import parser
 from control.models import ChimesSet
+from adafruit_servokit import ServoKit
+kit = ServoKit(channels=16)
 
 q = Queue()
 logger = logging.getLogger('django')
